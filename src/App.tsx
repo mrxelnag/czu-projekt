@@ -1,0 +1,46 @@
+import { QueryClientProvider } from "@tanstack/react-query";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { ThemeProvider } from "@/lib/theme-provider.tsx";
+import { useRegisterSW } from "virtual:pwa-register/react";
+import { routeTree } from "@/routeTree.gen.ts";
+import { queryClient } from "./lib/query-client.ts";
+
+// Create a new router instance
+const router = createRouter({
+  routeTree,
+  scrollRestoration: true,
+  context: {
+    queryClient,
+  },
+});
+
+// Register the router instance for type safety
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
+
+function AppContent() {
+  useRegisterSW({ immediate: true });
+
+  return (
+    <RouterProvider
+      router={router}
+      basepath="/app"
+      context={{
+        queryClient,
+      }}
+    />
+  );
+}
+
+export function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+        <AppContent />
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
+}
