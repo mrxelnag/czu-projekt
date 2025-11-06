@@ -55,6 +55,7 @@ export async function checkUserIsLoggedIn(): Promise<boolean> {
 export async function logout(): Promise<void> {
   // Odhlášení ze Supabase
   const { error } = await SB.auth.signOut();
+
   if (error) console.error("Supabase sign out error:", error);
 
   // Zrušení lokálních dat a nevalidace dotazů

@@ -1,0 +1,57 @@
+import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { formatBTC } from "@/lib/utils.ts";
+
+const JackpotDisplay = ({
+  label,
+  amount,
+}: {
+  label: string;
+  amount: number;
+}) => {
+  return (
+    <div className="min-w-0 flex-1 px-1 text-center">
+      <div className="text-xs font-medium tracking-wider text-gray-400 uppercase">
+        {label}
+      </div>
+      <motion.div
+        key={amount} // Key for animation on change
+        initial={{ y: -5, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.1 }}
+        className="overflow-hidden text-xl leading-tight font-bold text-ellipsis whitespace-nowrap text-yellow-400"
+      >
+        {formatBTC(amount)}
+      </motion.div>
+    </div>
+  );
+};
+
+export default function JackpotTopbar() {
+  // Use small BTC values for jackpots
+  const [jackpots, setJackpots] = useState({
+    mini: 0.000123,
+    midi: 0.001456,
+    maxi: 0.050123,
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Simulate slow BTC increase
+      setJackpots((prevJackpots) => ({
+        mini: prevJackpots.mini + Math.random() * 0.0000005,
+        midi: prevJackpots.midi + Math.random() * 0.000005,
+        maxi: prevJackpots.maxi + Math.random() * 0.000025,
+      }));
+    }, 1800);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <nav className="z-20 flex w-full items-center justify-around rounded-b-xl border-b-[3px] border-yellow-400 bg-gray-900/50 px-2 py-1 text-gray-50 shadow-xl">
+      <JackpotDisplay label="MINI JACKPOT" amount={jackpots.mini} />
+      <JackpotDisplay label="MIDI JACKPOT" amount={jackpots.midi} />
+      <JackpotDisplay label="MAXI JACKPOT" amount={jackpots.maxi} />
+    </nav>
+  );
+}

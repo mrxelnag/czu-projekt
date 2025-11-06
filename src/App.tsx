@@ -27,7 +27,7 @@ function AppContent() {
   return (
     <RouterProvider
       router={router}
-      basepath="/app"
+      basepath="/"
       context={{
         queryClient,
       }}

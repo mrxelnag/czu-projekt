@@ -44,7 +44,7 @@ export const useLogin = () => {
       login(data.email, data.password),
     onSuccess: () => {
       toast.success("Přihlášení bylo úspěšné");
-      navigate({ to: "/" });
+      navigate({ to: "/app" });
     },
     onError: (error: AuthError | Error) => {
       let message = "Něco se nepovedlo, zkuste to prosím znovu.";

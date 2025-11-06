@@ -4,3 +4,8 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const formatBTC = (amount: number) => {
+  // Use toFixed(6) for standard BTC display, replacing default Kč formatting
+  return amount.toFixed(6).replace(".", ",") + " ₿";
+};

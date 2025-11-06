@@ -1,5 +1,7 @@
 import {
+  DollarSignIcon,
   ForkKnife,
+  GamepadIcon,
   HomeIcon,
   LogOutIcon,
   SettingsIcon,
@@ -30,55 +32,47 @@ import { useLogout } from "@/api/auth.ts";
 
 const desktopLinks = linkOptions([
   {
-    to: "/",
+    to: "/app",
     icon: HomeIcon,
     title: "Domů",
   },
-  // {
-  //   to: "/menu",
-  //   icon: ForkKnife,
-  //   title: "Meníčka",
-  //   isActive: true,
-  //   items: [
-  //     {
-  //       to: "/menu/denni",
-  //       title: "Denní",
-  //     },
-  //     {
-  //       to: "/menu/tydenni",
-  //       title: "Týdenní",
-  //     },
-  //     {
-  //       to: "/menu/stale",
-  //       title: "Stálé",
-  //     },
-  //   ],
-  // },
-  // {
-  //   to: "/restaurace",
-  //   icon: StoreIcon,
-  //   title: "Restaurace",
-  //   isActive: true,
-  //   items: [
-  //     {
-  //       to: "/restaurace/nastaveni",
-  //       title: "Nastavení",
-  //     },
-  //     {
-  //       to: "/restaurace/oteviraci-doba",
-  //       title: "Otevírací doba",
-  //     },
-  //     {
-  //       to: "/restaurace/predplatne",
-  //       title: "Předplatné",
-  //     },
-  //   ],
-  // },
-  // {
-  //   to: "/spravci",
-  //   icon: UsersIcon,
-  //   title: "Správci",
-  // },
+  {
+    to: "/app/hry",
+    icon: GamepadIcon,
+    title: "Hry",
+    isActive: true,
+    items: [
+      {
+        to: "/app/hry/ruleta",
+        title: "Ruleta",
+      },
+      {
+        to: "/app/hry/automat",
+        title: "Automat",
+      },
+    ],
+  },
+  {
+    to: "/app/nastaveni",
+    icon: SettingsIcon,
+    title: "Nastavení",
+    isActive: true,
+    items: [
+      {
+        to: "/app/nastaveni/zakladni",
+        title: "Nastavení",
+      },
+      {
+        to: "/app/nastaveni/limity/",
+        title: "Limity",
+      },
+    ],
+  },
+  {
+    to: "/app/transakce",
+    icon: DollarSignIcon,
+    title: "Transakce",
+  },
 ]);
 
 export function AppSidebar({ user }: { user: AuthUser }) {

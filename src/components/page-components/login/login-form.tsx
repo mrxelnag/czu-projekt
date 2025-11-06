@@ -100,7 +100,7 @@ export function LoginForm({
             <img
               src="/logo.svg"
               alt="Image"
-              className="absolute inset-0 h-full w-full rounded-r-2xl object-cover p-8 dark:brightness-[0.2] dark:grayscale"
+              className="absolute inset-0 h-full w-full rounded-r-2xl object-cover p-8"
             />
           </div>
         </CardContent>
