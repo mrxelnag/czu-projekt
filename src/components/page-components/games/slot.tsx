@@ -8,6 +8,7 @@ import ResultDisplay from "./slot-components/result-display.tsx";
 import Paytable from "./slot-components/paytable.tsx";
 import { SPIN_ANIMATION_DURATION } from "./slot-components/config";
 import type { SlotSpinResponse } from "./slot-components/types";
+import { formatSAT } from "@/lib/utils.ts";
 
 // --- Main Slot Machine Component (Updated state and handleSpin logic) ---
 const SlotMachine = () => {
@@ -72,7 +73,7 @@ const SlotMachine = () => {
   // Combine `isPending` (API state) and `isAnimating` (UI state)
   const isSpinning = isPending || isAnimating;
 
-  const betOptions = [5, 10, 25, 50, 100];
+  const betOptions = [500, 1000, 2000, 5000, 10000];
 
   return (
     // Adjusted container class for better responsiveness
@@ -101,7 +102,7 @@ const SlotMachine = () => {
               initial={{ scale: 1.5, color: "#10b981" }}
               animate={{ scale: 1, color: "#facc15" }}
             >
-              {balance} Kč
+              {formatSAT(balance)}
             </motion.span>
           </div>
         </motion.div>
@@ -154,7 +155,7 @@ const SlotMachine = () => {
                       : "bg-gray-700 text-white hover:bg-gray-600"
                   } ${isSpinning ? "cursor-not-allowed opacity-50" : ""}`}
                 >
-                  {amount} Kč
+                  {formatSAT(amount)}
                 </motion.button>
               ))}
             </div>
@@ -189,7 +190,7 @@ const SlotMachine = () => {
             ) : (
               <>
                 <Play className="h-6 w-6" />
-                Roztočit za {betAmount} Kč
+                Roztočit za {formatSAT(betAmount)}
               </>
             )}
           </motion.button>

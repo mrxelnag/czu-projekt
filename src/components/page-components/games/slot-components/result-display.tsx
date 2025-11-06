@@ -2,16 +2,19 @@ import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Sparkles, TrendingDown } from "lucide-react";
 import type { SlotSpinResponse } from "./types";
+import { formatSAT } from "@/lib/utils.ts";
 
-const ResultDisplay: React.FC<{ result: SlotSpinResponse | null }> = ({ result }) => {
+const ResultDisplay: React.FC<{ result: SlotSpinResponse | null }> = ({
+  result,
+}) => {
   if (!result) return null;
 
-  const isWin = result.netResult > 0;
+  const isWin = result.totalWinnings > 0;
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={result.netResult}
+        key={result.totalWinnings}
         initial={{ scale: 0, rotate: -180, opacity: 0 }}
         animate={{ scale: 1, rotate: 0, opacity: 1 }}
         exit={{ scale: 0, rotate: 180, opacity: 0 }}
@@ -42,11 +45,11 @@ const ResultDisplay: React.FC<{ result: SlotSpinResponse | null }> = ({ result }
               className={`text-2xl font-bold sm:text-3xl ${isWin ? "text-yellow-300" : ""}`}
             >
               {result.netResult > 0 ? "+" : ""}
-              {result.netResult} Kč
+              {formatSAT(result.totalWinnings)}
             </div>
             {isWin && (
               <div className="text-sm text-yellow-100 opacity-90">
-                Vyhrali jste: {result.totalWinnings} Kč
+                Celkem výhra: {formatSAT(result.netResult)}
               </div>
             )}
           </div>

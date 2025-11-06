@@ -1,6 +1,5 @@
 import React from "react";
 import SlotReel from "./slot-reel.tsx";
-import WinningLine from "./winning-line.tsx";
 
 interface SlotGridProps {
   grid: string[][];
@@ -24,10 +23,6 @@ const SlotGrid: React.FC<SlotGridProps> = ({
       <div className="absolute right-3 bottom-3 h-4 w-4 rounded-br-lg border-r-4 border-b-4 border-yellow-400 sm:h-6 sm:w-6" />
 
       <div className="relative space-y-3 sm:space-y-4">
-        {winningRows.map((rowIndex) => (
-          <WinningLine key={rowIndex} rowIndex={rowIndex} />
-        ))}
-
         {grid.map((row, rowIndex) => (
           <div key={rowIndex} className="flex justify-center gap-3 sm:gap-4">
             {row.map((symbol, colIndex) => (

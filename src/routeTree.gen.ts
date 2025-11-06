@@ -8,11 +8,13 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppAppRouteImport } from './routes/app/_app'
 import { Route as loginLayoutRouteImport } from './routes/(login)/_layout'
 import { Route as landingLandingRouteImport } from './routes/(landing)/_landing'
-import { Route as AppAppIndexRouteImport } from './routes/app/_app.index'
+import { Route as AppAppIndexRouteImport } from './routes/app/_app/index'
 import { Route as landingLandingIndexRouteImport } from './routes/(landing)/_landing.index'
 import { Route as AppAppHryIndexRouteImport } from './routes/app/_app/hry/index'
 import { Route as loginLayoutZapomenuteHesloIndexRouteImport } from './routes/(login)/_layout/zapomenute-heslo/index'
@@ -21,6 +23,13 @@ import { Route as loginLayoutLoginIndexRouteImport } from './routes/(login)/_lay
 import { Route as AppAppHryRuletaIndexRouteImport } from './routes/app/_app/hry/ruleta/index'
 import { Route as AppAppHryAutomatIndexRouteImport } from './routes/app/_app/hry/automat/index'
 
+const AppRouteImport = createFileRoute('/app')()
+
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppAppRoute = AppAppRouteImport.update({
   id: '/_app',
   getParentRoute: () => AppRoute,
@@ -88,8 +97,8 @@ export interface FileRoutesByFullPath {
   '/app/hry/ruleta': typeof AppAppHryRuletaIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof landingLandingIndexRoute
   '/app': typeof AppAppIndexRoute
+  '/': typeof landingLandingIndexRoute
   '/login': typeof loginLayoutLoginIndexRoute
   '/registrace': typeof loginLayoutRegistraceIndexRoute
   '/zapomenute-heslo': typeof loginLayoutZapomenuteHesloIndexRoute
@@ -101,6 +110,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/(landing)/_landing': typeof landingLandingRouteWithChildren
   '/(login)/_layout': typeof loginLayoutRouteWithChildren
+  '/app': typeof AppRouteWithChildren
   '/app/_app': typeof AppAppRouteWithChildren
   '/(landing)/_landing/': typeof landingLandingIndexRoute
   '/app/_app/': typeof AppAppIndexRoute
@@ -125,8 +135,8 @@ export interface FileRouteTypes {
     | '/app/hry/ruleta'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/app'
+    | '/'
     | '/login'
     | '/registrace'
     | '/zapomenute-heslo'
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/(landing)/_landing'
     | '/(login)/_layout'
+    | '/app'
     | '/app/_app'
     | '/(landing)/_landing/'
     | '/app/_app/'
@@ -151,13 +162,21 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   landingLandingRoute: typeof landingLandingRouteWithChildren
   loginLayoutRoute: typeof loginLayoutRouteWithChildren
+  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app/_app': {
       id: '/app/_app'
-      path: ''
+      path: '/app'
       fullPath: '/app'
       preLoaderRoute: typeof AppAppRouteImport
       parentRoute: typeof AppRoute
@@ -263,9 +282,37 @@ const loginLayoutRouteWithChildren = loginLayoutRoute._addFileChildren(
   loginLayoutRouteChildren,
 )
 
+interface AppAppRouteChildren {
+  AppAppIndexRoute: typeof AppAppIndexRoute
+  AppAppHryIndexRoute: typeof AppAppHryIndexRoute
+  AppAppHryAutomatIndexRoute: typeof AppAppHryAutomatIndexRoute
+  AppAppHryRuletaIndexRoute: typeof AppAppHryRuletaIndexRoute
+}
+
+const AppAppRouteChildren: AppAppRouteChildren = {
+  AppAppIndexRoute: AppAppIndexRoute,
+  AppAppHryIndexRoute: AppAppHryIndexRoute,
+  AppAppHryAutomatIndexRoute: AppAppHryAutomatIndexRoute,
+  AppAppHryRuletaIndexRoute: AppAppHryRuletaIndexRoute,
+}
+
+const AppAppRouteWithChildren =
+  AppAppRoute._addFileChildren(AppAppRouteChildren)
+
+interface AppRouteChildren {
+  AppAppRoute: typeof AppAppRouteWithChildren
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAppRoute: AppAppRouteWithChildren,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   landingLandingRoute: landingLandingRouteWithChildren,
   loginLayoutRoute: loginLayoutRouteWithChildren,
+  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -6,8 +6,6 @@ import { createClient, User } from "@supabase/supabase-js";
 import { QK } from "@/types/enums.ts";
 import React, { useEffect } from "react";
 
-// --- Typové definice ---
-
 // Získáme typ řádku z vaší tabulky Players pro použití v TypeScriptu
 type PlayerRecord = Database["public"]["Tables"]["players"]["Row"];
 

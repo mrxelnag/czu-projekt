@@ -7,5 +7,5 @@ export const Route = createFileRoute("/app/_app/")({
 
 function RouteComponent() {
   const { user } = useAuth();
-  return <div className="mx-auto max-w-4xl space-y-6 p-6"></div>;
+  return <div className="mx-auto max-w-4xl space-y-6 p-6">tu</div>;
 }
