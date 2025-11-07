@@ -16,14 +16,11 @@ import {
   SidebarHeader,
   SidebarMenu,
 } from "@/components/ui/sidebar.tsx";
-import { Link, LinkComponent, linkOptions } from "@tanstack/react-router";
 
 import { ThemeToggle } from "@/components/ui/theme-toggle.tsx";
 
 import { useIsMobile } from "@/hooks/use-mobile.tsx";
 import SidebarLink from "@/components/ui/sidebar-link.tsx";
-import { PWAInstallPrompt } from "@/components/pwa-prompt.tsx";
-import { Button } from "@/components/ui/button.tsx";
 import { version } from "../../package.json";
 import { AuthUser } from "@/lib/authentication.ts";
 import { useLogout } from "@/api/auth.ts";
@@ -125,9 +122,6 @@ export function AppSidebar({ user }: { user: AuthUser }) {
       </SidebarContent>
       <SidebarFooter>
         <p className="text-center text-sm text-gray-500">Verze: {version}</p>
-        <div className="group-data-[collapsible=icon]:hidden">
-          <PWAInstallPrompt />
-        </div>
         <div className="flex items-center justify-between border-t border-gray-300 p-2 pb-4 transition-all duration-300 ease-in-out group-data-[collapsible=icon]:justify-center">
           <button
             className="flex items-center space-x-2 transition-all duration-300 ease-in-out group-data-[collapsible=icon]:hidden group-data-[collapsible=icon]:w-8"

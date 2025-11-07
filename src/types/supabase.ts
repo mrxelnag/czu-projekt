@@ -108,22 +108,22 @@ export type Database = {
         Row: {
           amount: number
           player_id: string
-          timestamp: string | null
-          transaction_id: number
+          transaction_id: string
+          transaction_time: string | null
           type: Database["public"]["Enums"]["transaction_type"]
         }
         Insert: {
           amount: number
           player_id: string
-          timestamp?: string | null
-          transaction_id?: never
+          transaction_id?: string
+          transaction_time?: string | null
           type: Database["public"]["Enums"]["transaction_type"]
         }
         Update: {
           amount?: number
           player_id?: string
-          timestamp?: string | null
-          transaction_id?: never
+          transaction_id?: string
+          transaction_time?: string | null
           type?: Database["public"]["Enums"]["transaction_type"]
         }
         Relationships: [
@@ -141,6 +141,11 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      add_balance_by_email: {
+        Args: { deposit_amount: number; user_email: string }
+        Returns: undefined
+      }
+      get_my_role: { Args: never; Returns: string }
       get_roulette_game_id: { Args: never; Returns: number }
       get_slot_machine_game_id: { Args: never; Returns: number }
       log_roulette_round: {

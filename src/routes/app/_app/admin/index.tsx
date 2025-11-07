@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { useAuth } from "@/lib/authentication.ts";
+import AdminDashboard from "@/components/page-components/admin/admin-dashboard.tsx";
 
 export const Route = createFileRoute("/app/_app/admin/")({
   component: RouteComponent,
@@ -13,5 +13,9 @@ export const Route = createFileRoute("/app/_app/admin/")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/app/_app/admin/"!</div>;
+  return (
+    <div>
+      <AdminDashboard />
+    </div>
+  );
 }
