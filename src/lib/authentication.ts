@@ -168,34 +168,10 @@ async function getAccessToken(): Promise<string | null> {
 export const useAuth = (): Authentication => {
   const { data: authUser } = useSuspenseQuery(userQueryOptions);
 
-  // Nastavení auth listener pouze jednou při mount
-  useEffect(() => {
-    const {
-      data: { subscription },
-    } = SB.auth.onAuthStateChange((event, session) => {
-      if (
-        event === "SIGNED_IN" ||
-        event === "SIGNED_OUT" ||
-        event === "TOKEN_REFRESHED" ||
-        event === "USER_UPDATED"
-      ) {
-        // Vynutíme refresh dotazu k načtení Player dat při změně auth stavu
-        queryClient.invalidateQueries({ queryKey: [QK.USER] });
-      }
-    });
-
-    // Cleanup funkce pro odpojení listeneru
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  // Získání tokenu synchronně z query cache nebo async
   const [token, setToken] = React.useState<string | null>(null);
-
   useEffect(() => {
     getAccessToken().then(setToken);
-  }, [authUser]);
+  }, [authUser]); // Závislost na authUser je správná
 
   return {
     user: authUser ?? null,

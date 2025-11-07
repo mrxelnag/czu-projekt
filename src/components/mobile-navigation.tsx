@@ -1,20 +1,10 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import {
-  DollarSignIcon,
-  ForkKnife,
-  GamepadIcon,
-  HomeIcon,
-  MenuIcon,
-  SettingsIcon,
-  StoreIcon,
-} from "lucide-react";
+import { DollarSignIcon, GamepadIcon, HomeIcon, MenuIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
-import { useAuth } from "@/lib/authentication.ts";
 
 export default function MobileNav() {
   const { toggleSidebar } = useSidebar();
-  const { user } = useAuth();
   const location = useLocation();
   return (
     <div className="border-border bg-background fixed bottom-0 left-0 z-50 w-screen border-t">

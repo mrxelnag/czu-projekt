@@ -21,4 +21,4 @@ export const SYMBOL_CONFIG = {
 } as const;
 
 // Based on the longest reel's animation: 1500ms (spin duration) + 2*200ms (max delay for 3 reels)
-export const SPIN_ANIMATION_DURATION = 500;
+export const SPIN_ANIMATION_DURATION = 2000;

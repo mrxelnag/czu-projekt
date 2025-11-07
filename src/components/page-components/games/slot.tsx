@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react"; // Import useEffect
 import { motion } from "framer-motion";
 import { Coins, Play, Sparkles } from "lucide-react";
 import { useSpinSlotMachine } from "@/api/spin/slot.ts";
@@ -10,24 +10,39 @@ import { SPIN_ANIMATION_DURATION } from "./slot-components/config";
 import type { SlotSpinResponse } from "./slot-components/types";
 import { formatSAT } from "@/lib/utils.ts";
 
-// --- Main Slot Machine Component (Updated state and handleSpin logic) ---
+// --- Main Slot Machine Component (Updated with Audio) ---
 const SlotMachine = () => {
   const [grid, setGrid] = useState<string[][]>([
     ["A", "B", "C"],
     ["C", "A", "B"],
     ["B", "C", "A"],
   ]);
-  const [betAmount, setBetAmount] = useState(10);
+  const [betAmount, setBetAmount] = useState(1000);
   const [result, setResult] = useState<SlotSpinResponse | null>(null);
   const [winningRows, setWinningRows] = useState<number[]>([]);
-  // New state to manage the full animation duration
   const [isAnimating, setIsAnimating] = useState(false);
 
   const { user } = useAuth();
   const balance = user?.current_balance || 0;
 
-  // useSpinSlotMachine handles the API request state (isPending)
   const { mutate: spin, isPending } = useSpinSlotMachine();
+
+  const [spinSound] = useState(() => {
+    const audio = new Audio("/sounds/slotmachine.mp3");
+    audio.loop = true;
+    return audio;
+  });
+
+  const [bigWinSound] = useState(() => {
+    return new Audio("/sounds/bigwin.mp3");
+  });
+  const [winSound] = useState(() => {
+    return new Audio("/sounds/win.mp3");
+  });
+
+  const [loseSound] = useState(() => {
+    return new Audio("/sounds/lose.mp3"); // Cesta k vašemu zvuku prohry
+  });
 
   const handleSpin = () => {
     if (betAmount > balance) {
@@ -37,8 +52,7 @@ const SlotMachine = () => {
 
     setResult(null);
     setWinningRows([]);
-    // Start the animation state
-    setIsAnimating(true);
+    setIsAnimating(true); // This will trigger the useEffect to play the spin sound
 
     spin(
       { betAmount },
@@ -50,33 +64,73 @@ const SlotMachine = () => {
             // Find winning rows
             const winners: number[] = [];
             data.grid.forEach((row, idx) => {
-              // Check for 3-in-a-row
               if (row.every((symbol) => symbol === row[0])) {
                 winners.push(idx);
               }
             });
 
+            // --- 🔊 Play Win Sound ---
+            if (data.totalWinnings > 50000) {
+              bigWinSound
+                .play()
+                .catch((e) =>
+                  console.error("Chyba přehrávání zvuku výhry:", e),
+                );
+            } else if (data.netResult > 0) {
+              winSound
+                .play()
+                .catch((e) =>
+                  console.error("Chyba přehrávání zvuku výhry:", e),
+                );
+            } else {
+              // Pokud nebyla žádná výhra, přehraj zvuk prohry
+              loseSound
+                .play()
+                .catch((e) =>
+                  console.error("Chyba přehrávání zvuku prohry:", e),
+                );
+            }
+            // -------------------------
+
             // Set results/winners and stop the animation state
             setWinningRows(winners);
             setResult(data);
-            setIsAnimating(false);
+            setIsAnimating(false); // This will trigger the useEffect to stop the spin sound
           }, SPIN_ANIMATION_DURATION);
         },
         onError: () => {
-          // Stop animation on error as well
-          setIsAnimating(false);
+          setIsAnimating(false); // Stop animation/sound on error
         },
       },
     );
   };
 
-  // Combine `isPending` (API state) and `isAnimating` (UI state)
   const isSpinning = isPending || isAnimating;
+
+  // --- 🔊 Effect for Spinning Sound ---
+  useEffect(() => {
+    if (isSpinning) {
+      // Use .catch() for browser autoplay policies
+      spinSound
+        .play()
+        .catch((e) => console.error("Chyba přehrávání zvuku točení:", e));
+    } else {
+      spinSound.pause();
+      spinSound.currentTime = 0; // Reset sound to the beginning
+    }
+
+    // Cleanup function: stop the sound if the component unmounts
+    return () => {
+      spinSound.pause();
+      spinSound.currentTime = 0;
+    };
+  }, [isSpinning, spinSound]); // Dependency array
+  // ---------------------------------
 
   const betOptions = [500, 1000, 2000, 5000, 10000];
 
   return (
-    // Adjusted container class for better responsiveness
+    // ... (zbytek vašeho JSX se nemění)
     <div className="flex min-h-screen items-center justify-center rounded-lg bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 p-4">
       <div className="w-full max-w-lg space-y-4 sm:space-y-6 lg:max-w-4xl">
         {/* Header */}
