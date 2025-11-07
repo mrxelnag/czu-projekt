@@ -11,5 +11,5 @@ export const formatBTC = (amount: number) => {
 };
 
 export const formatSAT = (amount: number) => {
-  return amount.toFixed(0).replace(".", ",") + " sats";
+  return amount.toFixed(0).replace(".", ",") + " sat";
 };

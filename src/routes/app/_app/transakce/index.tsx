@@ -1,9 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Transaction from "@/components/page-components/transaction/transaction-fonm.tsx";
 
 export const Route = createFileRoute("/app/_app/transakce/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  return <div>Hello "/app/_app/transakce/"!</div>;
+  return (
+    <div className="flex items-center justify-center">
+      <Transaction />
+    </div>
+  );
 }

@@ -97,7 +97,9 @@ export function AppSidebar({ user }: { user: AuthUser }) {
           <div className="flex flex-1 items-center overflow-hidden transition-all duration-300 ease-in-out group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0">
             <div className="w-full min-w-0">
               <div className="truncate text-sm font-medium">
-                {user.auth_user.email!.split("@")[0]}
+                {user.username
+                  ? user.username
+                  : user.auth_user.email!.split("@")[0]}
               </div>
             </div>
             <div className="ml-auto">
