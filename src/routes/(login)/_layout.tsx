@@ -26,7 +26,7 @@ function RouteComponent() {
           className: "absolute top-2 left-2 md:top-6 md:left-6",
         })}
       >
-        <ArrowLeft /> <a href="/">Zpět na hlavní stránku</a>
+        <ArrowLeft /> Zpět na hlavní stránku
       </a>
       <div className="w-full max-w-sm md:max-w-4xl">
         <Outlet />

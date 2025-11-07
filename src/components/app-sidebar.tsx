@@ -1,12 +1,10 @@
 import {
   DollarSignIcon,
-  ForkKnife,
   GamepadIcon,
   HomeIcon,
+  LockIcon,
   LogOutIcon,
   SettingsIcon,
-  StoreIcon,
-  UsersIcon,
 } from "lucide-react";
 
 import {
@@ -18,7 +16,7 @@ import {
   SidebarHeader,
   SidebarMenu,
 } from "@/components/ui/sidebar.tsx";
-import { Link, linkOptions } from "@tanstack/react-router";
+import { Link, LinkComponent, linkOptions } from "@tanstack/react-router";
 
 import { ThemeToggle } from "@/components/ui/theme-toggle.tsx";
 
@@ -30,54 +28,61 @@ import { version } from "../../package.json";
 import { AuthUser } from "@/lib/authentication.ts";
 import { useLogout } from "@/api/auth.ts";
 
-const desktopLinks = linkOptions([
-  {
-    to: "/app",
-    icon: HomeIcon,
-    title: "Domů",
-  },
-  {
-    to: "/app/hry",
-    icon: GamepadIcon,
-    title: "Hry",
-    isActive: true,
-    items: [
-      {
-        to: "/app/hry/ruleta",
-        title: "Ruleta",
-      },
-      {
-        to: "/app/hry/automat",
-        title: "Automat",
-      },
-    ],
-  },
-  {
-    to: "/app/nastaveni",
-    icon: SettingsIcon,
-    title: "Nastavení",
-    isActive: true,
-    items: [
-      {
-        to: "/app/nastaveni/zakladni",
-        title: "Nastavení",
-      },
-      {
-        to: "/app/nastaveni/limity/",
-        title: "Limity",
-      },
-    ],
-  },
-  {
-    to: "/app/transakce",
-    icon: DollarSignIcon,
-    title: "Transakce",
-  },
-]);
+const getRoleBasedLinks = (user: AuthUser) => {
+  const allLinks = [
+    {
+      to: "/app",
+      icon: HomeIcon,
+      title: "Domů",
+    },
+    {
+      to: "/app/hry",
+      icon: GamepadIcon,
+      title: "Hry",
+      isActive: true,
+      items: [
+        // {
+        //   to: "/app/hry/ruleta",
+        //   title: "Ruleta",
+        // },
+        {
+          to: "/app/hry/automat",
+          title: "Automat",
+        },
+      ],
+    },
+    {
+      to: "/app/nastaveni",
+      icon: SettingsIcon,
+      title: "Nastavení",
+    },
+    {
+      to: "/app/transakce",
+      icon: DollarSignIcon,
+      title: "Transakce",
+    },
+    {
+      to: "/app/admin",
+      icon: LockIcon,
+      title: "Administrace",
+      permission: ["admin"],
+    },
+  ];
+
+  // Filter based on user's position
+  return allLinks.filter((link) => {
+    if (!link.permission) return true;
+    return link.permission.some((position) =>
+      user.player_role?.includes(position),
+    );
+  });
+};
 
 export function AppSidebar({ user }: { user: AuthUser }) {
   const isMobile = useIsMobile();
   const logout = useLogout();
+
+  const desktopLinks = getRoleBasedLinks(user);
   return (
     <Sidebar side={isMobile ? "right" : "left"}>
       <SidebarHeader>
@@ -95,11 +100,6 @@ export function AppSidebar({ user }: { user: AuthUser }) {
                 {user.auth_user.email!.split("@")[0]}
               </div>
             </div>
-            <Link to={"/uzivatel/" + user.auth_user.id}>
-              <Button variant="ghost" size={"icon"} className="ml-auto">
-                <SettingsIcon />
-              </Button>
-            </Link>
             <div className="ml-auto">
               <ThemeToggle />
             </div>

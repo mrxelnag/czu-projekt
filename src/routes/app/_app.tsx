@@ -53,13 +53,8 @@ export const Route = createFileRoute("/app/_app")({
 
 function LayoutComponent() {
   const { user } = useAuth();
-  const navigate = useNavigate();
   const isMobile = useIsMobile();
-  useEffect(() => {
-    if (!user) {
-      navigate({ to: "/login" });
-    }
-  }, [user, navigate]);
+
 
   return (
     <SidebarProvider>

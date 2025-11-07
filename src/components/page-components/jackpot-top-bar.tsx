@@ -57,7 +57,7 @@ export default function JackpotTopbar() {
   }, []);
 
   return (
-    <nav className="z-20 flex w-full items-center justify-around rounded-b-xl border-b-[3px] border-yellow-400 bg-gray-900/50 px-2 py-1 text-gray-50 shadow-xl">
+    <nav className="bg-background border-primary text-muted-foreground z-20 flex w-full items-center justify-around rounded-b-xl border-b-[3px] px-2 py-1 shadow-xl">
       <JackpotDisplay label="PARTIKŮV MINI JACKPOT" amount={jackpots.mini} />
       <JackpotDisplay label="MARKŮV MID JACKPOT" amount={jackpots.midi} />
       <JackpotDisplay label="JIRKY MEGA JACKPOT" amount={jackpots.maxi} />

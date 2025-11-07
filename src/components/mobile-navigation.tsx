@@ -1,5 +1,13 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { ForkKnife, HomeIcon, MenuIcon, StoreIcon } from "lucide-react";
+import {
+  DollarSignIcon,
+  ForkKnife,
+  GamepadIcon,
+  HomeIcon,
+  MenuIcon,
+  SettingsIcon,
+  StoreIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
 import { useAuth } from "@/lib/authentication.ts";
@@ -17,25 +25,20 @@ export default function MobileNav() {
           className="[&.active]:text-primary hover:bg-accent hover:text-accent-foreground inline-flex flex-col items-center justify-center transition-colors"
         >
           <HomeIcon className="mb-1 h-5 w-5" />
-          <span className="sr-only">Menu</span>
         </Link>
         <Link
-          to={"/menu/denni"}
-          data-active={location.pathname.startsWith("/menu")}
-          disabled={user!.restaurant === ""}
+          to={"/app/hry"}
+          data-active={location.pathname.startsWith("/app/hry")}
           className="data-[active=true]:text-primary hover:bg-accent hover:text-accent-foreground inline-flex flex-col items-center justify-center transition-colors aria-disabled:pointer-events-none aria-disabled:opacity-20"
         >
-          <ForkKnife className="mb-1 h-5 w-5" />
-          <span className="sr-only">Menu</span>
+          <GamepadIcon className="mb-1 h-5 w-5" />
         </Link>
         <Link
-          to={"/restaurace/nastaveni"}
-          disabled={user!.restaurant === ""}
-          data-active={location.pathname.startsWith("/restaurace")}
+          to={"/app/transakce"}
+          data-active={location.pathname.startsWith("/app/transakce")}
           className="data-[active=true]:text-primary hover:bg-accent hover:text-accent-foreground inline-flex flex-col items-center justify-center transition-colors aria-disabled:pointer-events-none aria-disabled:opacity-20"
         >
-          <StoreIcon className="mb-1 h-5 w-5" />
-          <span className="sr-only">Restaurace</span>
+          <DollarSignIcon className="mb-1 h-5 w-5" />
         </Link>
         <div className="inline-flex flex-col items-center justify-center">
           <Button
@@ -44,7 +47,6 @@ export default function MobileNav() {
             className="hover:bg-accent text-foreground hover:text-accent-foreground h-full w-full rounded-none"
           >
             <MenuIcon className="mb-1 !h-5 !w-5" />
-            <span className="sr-only">Menu</span>
           </Button>
         </div>
       </div>

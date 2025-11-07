@@ -16,7 +16,10 @@ import { Route as loginLayoutRouteImport } from './routes/(login)/_layout'
 import { Route as landingLandingRouteImport } from './routes/(landing)/_landing'
 import { Route as AppAppIndexRouteImport } from './routes/app/_app/index'
 import { Route as landingLandingIndexRouteImport } from './routes/(landing)/_landing.index'
+import { Route as AppAppTransakceIndexRouteImport } from './routes/app/_app/transakce/index'
+import { Route as AppAppNastaveniIndexRouteImport } from './routes/app/_app/nastaveni/index'
 import { Route as AppAppHryIndexRouteImport } from './routes/app/_app/hry/index'
+import { Route as AppAppAdminIndexRouteImport } from './routes/app/_app/admin/index'
 import { Route as loginLayoutZapomenuteHesloIndexRouteImport } from './routes/(login)/_layout/zapomenute-heslo/index'
 import { Route as loginLayoutRegistraceIndexRouteImport } from './routes/(login)/_layout/registrace/index'
 import { Route as loginLayoutLoginIndexRouteImport } from './routes/(login)/_layout/login/index'
@@ -52,9 +55,24 @@ const landingLandingIndexRoute = landingLandingIndexRouteImport.update({
   path: '/',
   getParentRoute: () => landingLandingRoute,
 } as any)
+const AppAppTransakceIndexRoute = AppAppTransakceIndexRouteImport.update({
+  id: '/transakce/',
+  path: '/transakce/',
+  getParentRoute: () => AppAppRoute,
+} as any)
+const AppAppNastaveniIndexRoute = AppAppNastaveniIndexRouteImport.update({
+  id: '/nastaveni/',
+  path: '/nastaveni/',
+  getParentRoute: () => AppAppRoute,
+} as any)
 const AppAppHryIndexRoute = AppAppHryIndexRouteImport.update({
   id: '/hry/',
   path: '/hry/',
+  getParentRoute: () => AppAppRoute,
+} as any)
+const AppAppAdminIndexRoute = AppAppAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => AppAppRoute,
 } as any)
 const loginLayoutZapomenuteHesloIndexRoute =
@@ -92,7 +110,10 @@ export interface FileRoutesByFullPath {
   '/login': typeof loginLayoutLoginIndexRoute
   '/registrace': typeof loginLayoutRegistraceIndexRoute
   '/zapomenute-heslo': typeof loginLayoutZapomenuteHesloIndexRoute
+  '/app/admin': typeof AppAppAdminIndexRoute
   '/app/hry': typeof AppAppHryIndexRoute
+  '/app/nastaveni': typeof AppAppNastaveniIndexRoute
+  '/app/transakce': typeof AppAppTransakceIndexRoute
   '/app/hry/automat': typeof AppAppHryAutomatIndexRoute
   '/app/hry/ruleta': typeof AppAppHryRuletaIndexRoute
 }
@@ -102,7 +123,10 @@ export interface FileRoutesByTo {
   '/login': typeof loginLayoutLoginIndexRoute
   '/registrace': typeof loginLayoutRegistraceIndexRoute
   '/zapomenute-heslo': typeof loginLayoutZapomenuteHesloIndexRoute
+  '/app/admin': typeof AppAppAdminIndexRoute
   '/app/hry': typeof AppAppHryIndexRoute
+  '/app/nastaveni': typeof AppAppNastaveniIndexRoute
+  '/app/transakce': typeof AppAppTransakceIndexRoute
   '/app/hry/automat': typeof AppAppHryAutomatIndexRoute
   '/app/hry/ruleta': typeof AppAppHryRuletaIndexRoute
 }
@@ -117,7 +141,10 @@ export interface FileRoutesById {
   '/(login)/_layout/login/': typeof loginLayoutLoginIndexRoute
   '/(login)/_layout/registrace/': typeof loginLayoutRegistraceIndexRoute
   '/(login)/_layout/zapomenute-heslo/': typeof loginLayoutZapomenuteHesloIndexRoute
+  '/app/_app/admin/': typeof AppAppAdminIndexRoute
   '/app/_app/hry/': typeof AppAppHryIndexRoute
+  '/app/_app/nastaveni/': typeof AppAppNastaveniIndexRoute
+  '/app/_app/transakce/': typeof AppAppTransakceIndexRoute
   '/app/_app/hry/automat/': typeof AppAppHryAutomatIndexRoute
   '/app/_app/hry/ruleta/': typeof AppAppHryRuletaIndexRoute
 }
@@ -130,7 +157,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/registrace'
     | '/zapomenute-heslo'
+    | '/app/admin'
     | '/app/hry'
+    | '/app/nastaveni'
+    | '/app/transakce'
     | '/app/hry/automat'
     | '/app/hry/ruleta'
   fileRoutesByTo: FileRoutesByTo
@@ -140,7 +170,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/registrace'
     | '/zapomenute-heslo'
+    | '/app/admin'
     | '/app/hry'
+    | '/app/nastaveni'
+    | '/app/transakce'
     | '/app/hry/automat'
     | '/app/hry/ruleta'
   id:
@@ -154,7 +187,10 @@ export interface FileRouteTypes {
     | '/(login)/_layout/login/'
     | '/(login)/_layout/registrace/'
     | '/(login)/_layout/zapomenute-heslo/'
+    | '/app/_app/admin/'
     | '/app/_app/hry/'
+    | '/app/_app/nastaveni/'
+    | '/app/_app/transakce/'
     | '/app/_app/hry/automat/'
     | '/app/_app/hry/ruleta/'
   fileRoutesById: FileRoutesById
@@ -209,11 +245,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof landingLandingIndexRouteImport
       parentRoute: typeof landingLandingRoute
     }
+    '/app/_app/transakce/': {
+      id: '/app/_app/transakce/'
+      path: '/transakce'
+      fullPath: '/app/transakce'
+      preLoaderRoute: typeof AppAppTransakceIndexRouteImport
+      parentRoute: typeof AppAppRoute
+    }
+    '/app/_app/nastaveni/': {
+      id: '/app/_app/nastaveni/'
+      path: '/nastaveni'
+      fullPath: '/app/nastaveni'
+      preLoaderRoute: typeof AppAppNastaveniIndexRouteImport
+      parentRoute: typeof AppAppRoute
+    }
     '/app/_app/hry/': {
       id: '/app/_app/hry/'
       path: '/hry'
       fullPath: '/app/hry'
       preLoaderRoute: typeof AppAppHryIndexRouteImport
+      parentRoute: typeof AppAppRoute
+    }
+    '/app/_app/admin/': {
+      id: '/app/_app/admin/'
+      path: '/admin'
+      fullPath: '/app/admin'
+      preLoaderRoute: typeof AppAppAdminIndexRouteImport
       parentRoute: typeof AppAppRoute
     }
     '/(login)/_layout/zapomenute-heslo/': {
@@ -284,14 +341,20 @@ const loginLayoutRouteWithChildren = loginLayoutRoute._addFileChildren(
 
 interface AppAppRouteChildren {
   AppAppIndexRoute: typeof AppAppIndexRoute
+  AppAppAdminIndexRoute: typeof AppAppAdminIndexRoute
   AppAppHryIndexRoute: typeof AppAppHryIndexRoute
+  AppAppNastaveniIndexRoute: typeof AppAppNastaveniIndexRoute
+  AppAppTransakceIndexRoute: typeof AppAppTransakceIndexRoute
   AppAppHryAutomatIndexRoute: typeof AppAppHryAutomatIndexRoute
   AppAppHryRuletaIndexRoute: typeof AppAppHryRuletaIndexRoute
 }
 
 const AppAppRouteChildren: AppAppRouteChildren = {
   AppAppIndexRoute: AppAppIndexRoute,
+  AppAppAdminIndexRoute: AppAppAdminIndexRoute,
   AppAppHryIndexRoute: AppAppHryIndexRoute,
+  AppAppNastaveniIndexRoute: AppAppNastaveniIndexRoute,
+  AppAppTransakceIndexRoute: AppAppTransakceIndexRoute,
   AppAppHryAutomatIndexRoute: AppAppHryAutomatIndexRoute,
   AppAppHryRuletaIndexRoute: AppAppHryRuletaIndexRoute,
 }

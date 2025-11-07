@@ -85,18 +85,21 @@ export type Database = {
           current_balance: number
           join_date: string | null
           player_id: string
+          player_role: Database["public"]["Enums"]["user_role"]
           username: string
         }
         Insert: {
           current_balance?: number
           join_date?: string | null
           player_id: string
+          player_role?: Database["public"]["Enums"]["user_role"]
           username: string
         }
         Update: {
           current_balance?: number
           join_date?: string | null
           player_id?: string
+          player_role?: Database["public"]["Enums"]["user_role"]
           username?: string
         }
         Relationships: []
@@ -138,10 +141,30 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_roulette_game_id: { Args: never; Returns: number }
+      get_slot_machine_game_id: { Args: never; Returns: number }
+      log_roulette_round: {
+        Args: {
+          p_bet_amount: number
+          p_net_result: number
+          p_player_id: string
+          p_result_details: string
+        }
+        Returns: Json
+      }
+      log_slot_machine_round: {
+        Args: {
+          p_bet_amount: number
+          p_net_result: number
+          p_player_id: string
+          p_result_details: string
+        }
+        Returns: Json
+      }
     }
     Enums: {
       transaction_type: "deposit" | "withdrawal"
+      user_role: "admin" | "player"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -270,6 +293,7 @@ export const Constants = {
   public: {
     Enums: {
       transaction_type: ["deposit", "withdrawal"],
+      user_role: ["admin", "player"],
     },
   },
 } as const

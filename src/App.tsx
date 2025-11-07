@@ -1,9 +1,9 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { ThemeProvider } from "@/lib/theme-provider.tsx";
-import { useRegisterSW } from "virtual:pwa-register/react";
 import { routeTree } from "@/routeTree.gen.ts";
 import { queryClient } from "./lib/query-client.ts";
+import { useAuth } from "@/lib/authentication.ts";
 
 // Create a new router instance
 const router = createRouter({
@@ -11,6 +11,7 @@ const router = createRouter({
   scrollRestoration: true,
   context: {
     queryClient,
+    user: null!,
   },
 });
 
@@ -22,14 +23,14 @@ declare module "@tanstack/react-router" {
 }
 
 function AppContent() {
-  useRegisterSW({ immediate: true });
-
+  const { user } = useAuth();
   return (
     <RouterProvider
       router={router}
       basepath="/"
       context={{
         queryClient,
+        user,
       }}
     />
   );
