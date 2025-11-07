@@ -76,7 +76,7 @@ const SlotMachine = () => {
                 .catch((e) =>
                   console.error("Chyba přehrávání zvuku výhry:", e),
                 );
-            } else if (data.netResult > 0) {
+            } else if (data.totalWinnings > 0) {
               winSound
                 .play()
                 .catch((e) =>
