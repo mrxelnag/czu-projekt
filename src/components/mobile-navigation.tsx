@@ -14,21 +14,21 @@ export default function MobileNav() {
           activeOptions={{ exact: true }}
           className="[&.active]:text-primary hover:bg-accent hover:text-accent-foreground inline-flex flex-col items-center justify-center transition-colors"
         >
-          <HomeIcon className="mb-1 h-5 w-5" />
+          <HomeIcon className="text-foreground mb-1 h-5 w-5" />
         </Link>
         <Link
           to={"/app/hry"}
           data-active={location.pathname.startsWith("/app/hry")}
           className="data-[active=true]:text-primary hover:bg-accent hover:text-accent-foreground inline-flex flex-col items-center justify-center transition-colors aria-disabled:pointer-events-none aria-disabled:opacity-20"
         >
-          <GamepadIcon className="mb-1 h-5 w-5" />
+          <GamepadIcon className="text-foreground mb-1 h-5 w-5" />
         </Link>
         <Link
           to={"/app/transakce"}
           data-active={location.pathname.startsWith("/app/transakce")}
           className="data-[active=true]:text-primary hover:bg-accent hover:text-accent-foreground inline-flex flex-col items-center justify-center transition-colors aria-disabled:pointer-events-none aria-disabled:opacity-20"
         >
-          <DollarSignIcon className="mb-1 h-5 w-5" />
+          <DollarSignIcon className="text-foreground mb-1 h-5 w-5" />
         </Link>
         <div className="inline-flex flex-col items-center justify-center">
           <Button
