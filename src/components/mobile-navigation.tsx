@@ -10,14 +10,14 @@ export default function MobileNav() {
     <div className="border-border bg-background fixed bottom-0 left-0 z-50 w-screen border-t">
       <div className="mx-auto grid h-16 max-w-lg grid-cols-4">
         <Link
-          to={"/"}
+          to={"/app"}
           activeOptions={{ exact: true }}
           className="[&.active]:text-primary hover:bg-accent hover:text-accent-foreground inline-flex flex-col items-center justify-center transition-colors"
         >
           <HomeIcon className="text-foreground mb-1 h-5 w-5" />
         </Link>
         <Link
-          to={"/app/hry"}
+          to={"/app/hry/automat"}
           data-active={location.pathname.startsWith("/app/hry")}
           className="data-[active=true]:text-primary hover:bg-accent hover:text-accent-foreground inline-flex flex-col items-center justify-center transition-colors aria-disabled:pointer-events-none aria-disabled:opacity-20"
         >
