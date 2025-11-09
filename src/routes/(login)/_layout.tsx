@@ -13,6 +13,17 @@ export const Route = createFileRoute("/(login)/_layout")({
     }
   },
   component: RouteComponent,
+  head: () => ({
+    meta: [
+      {
+        name: "meta",
+        content: "CZU Kasíno, studenstký projekt kasína",
+      },
+      {
+        title: "CZU Kasíno | Admin",
+      },
+    ],
+  }),
 });
 
 function RouteComponent() {
