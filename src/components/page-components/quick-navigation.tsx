@@ -51,7 +51,7 @@ export default function QuickNavigation() {
   return (
     <div className="mx-auto max-w-7xl space-y-10 p-6">
       <div className="text-center">
-        <Header1 primaryColor>Gastrák</Header1>
+        <Header1 primaryColor>ČZU Kasíno</Header1>
         <p className="text-muted-foreground mt-1 text-sm">
           Místo, kde správa restaurace a jídelních lístků konečně dává smysl.
         </p>
