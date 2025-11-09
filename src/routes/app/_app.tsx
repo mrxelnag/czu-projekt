@@ -34,6 +34,10 @@ export const Route = createFileRoute("/app/_app")({
   loader: ({ context: { queryClient } }) =>
     queryClient.ensureQueryData(userQueryOptions),
 
+  notFoundComponent: () => {
+    return <p>Tato stránka neexistuje</p>;
+  },
+
   pendingComponent: () => <LoadingPage />,
   errorComponent: ErrorPage,
   component: LayoutComponent,
@@ -41,8 +45,7 @@ export const Route = createFileRoute("/app/_app")({
     meta: [
       {
         name: "meta",
-        content:
-          "CZU Kasíno, webová aplikace pro majitele restaurací, kde správa restaurace a jídelních lístků konečně dává smysl.",
+        content: "CZU Kasíno, studenstký projekt kasína",
       },
       {
         title: "CZU Kasíno | Admin",
@@ -54,7 +57,6 @@ export const Route = createFileRoute("/app/_app")({
 function LayoutComponent() {
   const { user } = useAuth();
   const isMobile = useIsMobile();
-
 
   return (
     <SidebarProvider>

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useAuth } from "@/lib/authentication.ts";
+import QuickNavigation from "@/components/page-components/quick-navigation.tsx";
 
 export const Route = createFileRoute("/app/_app/")({
   component: RouteComponent,
@@ -7,5 +8,5 @@ export const Route = createFileRoute("/app/_app/")({
 
 function RouteComponent() {
   const { user } = useAuth();
-  return <div className="mx-auto max-w-4xl space-y-6 p-6">tu</div>;
+  return <QuickNavigation />;
 }

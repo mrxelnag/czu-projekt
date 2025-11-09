@@ -18,12 +18,10 @@ import { Route as AppAppIndexRouteImport } from './routes/app/_app/index'
 import { Route as landingLandingIndexRouteImport } from './routes/(landing)/_landing.index'
 import { Route as AppAppTransakceIndexRouteImport } from './routes/app/_app/transakce/index'
 import { Route as AppAppNastaveniIndexRouteImport } from './routes/app/_app/nastaveni/index'
-import { Route as AppAppHryIndexRouteImport } from './routes/app/_app/hry/index'
 import { Route as AppAppAdminIndexRouteImport } from './routes/app/_app/admin/index'
 import { Route as loginLayoutZapomenuteHesloIndexRouteImport } from './routes/(login)/_layout/zapomenute-heslo/index'
 import { Route as loginLayoutRegistraceIndexRouteImport } from './routes/(login)/_layout/registrace/index'
 import { Route as loginLayoutLoginIndexRouteImport } from './routes/(login)/_layout/login/index'
-import { Route as AppAppHryRuletaIndexRouteImport } from './routes/app/_app/hry/ruleta/index'
 import { Route as AppAppHryAutomatIndexRouteImport } from './routes/app/_app/hry/automat/index'
 
 const AppRouteImport = createFileRoute('/app')()
@@ -65,11 +63,6 @@ const AppAppNastaveniIndexRoute = AppAppNastaveniIndexRouteImport.update({
   path: '/nastaveni/',
   getParentRoute: () => AppAppRoute,
 } as any)
-const AppAppHryIndexRoute = AppAppHryIndexRouteImport.update({
-  id: '/hry/',
-  path: '/hry/',
-  getParentRoute: () => AppAppRoute,
-} as any)
 const AppAppAdminIndexRoute = AppAppAdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
@@ -92,11 +85,6 @@ const loginLayoutLoginIndexRoute = loginLayoutLoginIndexRouteImport.update({
   path: '/login/',
   getParentRoute: () => loginLayoutRoute,
 } as any)
-const AppAppHryRuletaIndexRoute = AppAppHryRuletaIndexRouteImport.update({
-  id: '/hry/ruleta/',
-  path: '/hry/ruleta/',
-  getParentRoute: () => AppAppRoute,
-} as any)
 const AppAppHryAutomatIndexRoute = AppAppHryAutomatIndexRouteImport.update({
   id: '/hry/automat/',
   path: '/hry/automat/',
@@ -111,11 +99,9 @@ export interface FileRoutesByFullPath {
   '/registrace': typeof loginLayoutRegistraceIndexRoute
   '/zapomenute-heslo': typeof loginLayoutZapomenuteHesloIndexRoute
   '/app/admin': typeof AppAppAdminIndexRoute
-  '/app/hry': typeof AppAppHryIndexRoute
   '/app/nastaveni': typeof AppAppNastaveniIndexRoute
   '/app/transakce': typeof AppAppTransakceIndexRoute
   '/app/hry/automat': typeof AppAppHryAutomatIndexRoute
-  '/app/hry/ruleta': typeof AppAppHryRuletaIndexRoute
 }
 export interface FileRoutesByTo {
   '/app': typeof AppAppIndexRoute
@@ -124,11 +110,9 @@ export interface FileRoutesByTo {
   '/registrace': typeof loginLayoutRegistraceIndexRoute
   '/zapomenute-heslo': typeof loginLayoutZapomenuteHesloIndexRoute
   '/app/admin': typeof AppAppAdminIndexRoute
-  '/app/hry': typeof AppAppHryIndexRoute
   '/app/nastaveni': typeof AppAppNastaveniIndexRoute
   '/app/transakce': typeof AppAppTransakceIndexRoute
   '/app/hry/automat': typeof AppAppHryAutomatIndexRoute
-  '/app/hry/ruleta': typeof AppAppHryRuletaIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -142,11 +126,9 @@ export interface FileRoutesById {
   '/(login)/_layout/registrace/': typeof loginLayoutRegistraceIndexRoute
   '/(login)/_layout/zapomenute-heslo/': typeof loginLayoutZapomenuteHesloIndexRoute
   '/app/_app/admin/': typeof AppAppAdminIndexRoute
-  '/app/_app/hry/': typeof AppAppHryIndexRoute
   '/app/_app/nastaveni/': typeof AppAppNastaveniIndexRoute
   '/app/_app/transakce/': typeof AppAppTransakceIndexRoute
   '/app/_app/hry/automat/': typeof AppAppHryAutomatIndexRoute
-  '/app/_app/hry/ruleta/': typeof AppAppHryRuletaIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -158,11 +140,9 @@ export interface FileRouteTypes {
     | '/registrace'
     | '/zapomenute-heslo'
     | '/app/admin'
-    | '/app/hry'
     | '/app/nastaveni'
     | '/app/transakce'
     | '/app/hry/automat'
-    | '/app/hry/ruleta'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/app'
@@ -171,11 +151,9 @@ export interface FileRouteTypes {
     | '/registrace'
     | '/zapomenute-heslo'
     | '/app/admin'
-    | '/app/hry'
     | '/app/nastaveni'
     | '/app/transakce'
     | '/app/hry/automat'
-    | '/app/hry/ruleta'
   id:
     | '__root__'
     | '/(landing)/_landing'
@@ -188,11 +166,9 @@ export interface FileRouteTypes {
     | '/(login)/_layout/registrace/'
     | '/(login)/_layout/zapomenute-heslo/'
     | '/app/_app/admin/'
-    | '/app/_app/hry/'
     | '/app/_app/nastaveni/'
     | '/app/_app/transakce/'
     | '/app/_app/hry/automat/'
-    | '/app/_app/hry/ruleta/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -259,13 +235,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAppNastaveniIndexRouteImport
       parentRoute: typeof AppAppRoute
     }
-    '/app/_app/hry/': {
-      id: '/app/_app/hry/'
-      path: '/hry'
-      fullPath: '/app/hry'
-      preLoaderRoute: typeof AppAppHryIndexRouteImport
-      parentRoute: typeof AppAppRoute
-    }
     '/app/_app/admin/': {
       id: '/app/_app/admin/'
       path: '/admin'
@@ -293,13 +262,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/login'
       preLoaderRoute: typeof loginLayoutLoginIndexRouteImport
       parentRoute: typeof loginLayoutRoute
-    }
-    '/app/_app/hry/ruleta/': {
-      id: '/app/_app/hry/ruleta/'
-      path: '/hry/ruleta'
-      fullPath: '/app/hry/ruleta'
-      preLoaderRoute: typeof AppAppHryRuletaIndexRouteImport
-      parentRoute: typeof AppAppRoute
     }
     '/app/_app/hry/automat/': {
       id: '/app/_app/hry/automat/'
@@ -342,21 +304,17 @@ const loginLayoutRouteWithChildren = loginLayoutRoute._addFileChildren(
 interface AppAppRouteChildren {
   AppAppIndexRoute: typeof AppAppIndexRoute
   AppAppAdminIndexRoute: typeof AppAppAdminIndexRoute
-  AppAppHryIndexRoute: typeof AppAppHryIndexRoute
   AppAppNastaveniIndexRoute: typeof AppAppNastaveniIndexRoute
   AppAppTransakceIndexRoute: typeof AppAppTransakceIndexRoute
   AppAppHryAutomatIndexRoute: typeof AppAppHryAutomatIndexRoute
-  AppAppHryRuletaIndexRoute: typeof AppAppHryRuletaIndexRoute
 }
 
 const AppAppRouteChildren: AppAppRouteChildren = {
   AppAppIndexRoute: AppAppIndexRoute,
   AppAppAdminIndexRoute: AppAppAdminIndexRoute,
-  AppAppHryIndexRoute: AppAppHryIndexRoute,
   AppAppNastaveniIndexRoute: AppAppNastaveniIndexRoute,
   AppAppTransakceIndexRoute: AppAppTransakceIndexRoute,
   AppAppHryAutomatIndexRoute: AppAppHryAutomatIndexRoute,
-  AppAppHryRuletaIndexRoute: AppAppHryRuletaIndexRoute,
 }
 
 const AppAppRouteWithChildren =
