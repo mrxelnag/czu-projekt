@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"; // Import useEffect
 import { motion } from "framer-motion";
-import { Coins, Play, Sparkles } from "lucide-react";
+import { Coins, Play, Sparkles, Volume2, VolumeX } from "lucide-react"; // Zde je přidáno Volume2 a VolumeX
 import { useSpinSlotMachine } from "@/api/spin/slot.ts";
 import { useAuth } from "@/lib/authentication.ts";
 import SlotGrid from "./slot-components/slot-grid.tsx";
@@ -10,7 +10,7 @@ import { SPIN_ANIMATION_DURATION } from "./slot-components/config";
 import type { SlotSpinResponse } from "./slot-components/types";
 import { formatSAT } from "@/lib/utils.ts";
 
-// --- Main Slot Machine Component (Updated with Audio) ---
+// --- Main Slot Machine Component (Updated with Audio and Mute) ---
 const SlotMachine = () => {
   const [grid, setGrid] = useState<string[][]>([
     ["A", "B", "C"],
@@ -21,6 +21,7 @@ const SlotMachine = () => {
   const [result, setResult] = useState<SlotSpinResponse | null>(null);
   const [winningRows, setWinningRows] = useState<number[]>([]);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // Nový stav pro ztlumení
 
   const { user } = useAuth();
   const balance = user?.current_balance || 0;
@@ -43,6 +44,25 @@ const SlotMachine = () => {
   const [loseSound] = useState(() => {
     return new Audio("/sounds/lose.mp3"); // Cesta k vašemu zvuku prohry
   });
+
+  // --- Funkce pro ztlumení/odtlumení ---
+  const toggleMute = () => {
+    const newMutedState = !isMuted;
+    setIsMuted(newMutedState);
+
+    // Aplikovat ztlumení na všechny audio objekty
+    spinSound.muted = newMutedState;
+    bigWinSound.muted = newMutedState;
+    winSound.muted = newMutedState;
+    loseSound.muted = newMutedState;
+
+    // Pokud ztlumíme během točení, zvuk zastavíme
+    if (newMutedState && isSpinning) {
+      spinSound.pause();
+      spinSound.currentTime = 0;
+    }
+  };
+  // -------------------------------------
 
   const handleSpin = () => {
     if (betAmount > balance) {
@@ -69,26 +89,28 @@ const SlotMachine = () => {
               }
             });
 
-            // --- 🔊 Play Win Sound ---
-            if (data.totalWinnings > 50000) {
-              bigWinSound
-                .play()
-                .catch((e) =>
-                  console.error("Chyba přehrávání zvuku výhry:", e),
-                );
-            } else if (data.totalWinnings > 0) {
-              winSound
-                .play()
-                .catch((e) =>
-                  console.error("Chyba přehrávání zvuku výhry:", e),
-                );
-            } else {
-              // Pokud nebyla žádná výhra, přehraj zvuk prohry
-              loseSound
-                .play()
-                .catch((e) =>
-                  console.error("Chyba přehrávání zvuku prohry:", e),
-                );
+            // --- 🔊 Play Win Sound (přidána kontrola isMuted) ---
+            if (!isMuted) {
+              if (data.totalWinnings > 50000) {
+                bigWinSound
+                  .play()
+                  .catch((e) =>
+                    console.error("Chyba přehrávání zvuku výhry:", e),
+                  );
+              } else if (data.totalWinnings > 0) {
+                winSound
+                  .play()
+                  .catch((e) =>
+                    console.error("Chyba přehrávání zvuku výhry:", e),
+                  );
+              } else {
+                // Pokud nebyla žádná výhra, přehraj zvuk prohry
+                loseSound
+                  .play()
+                  .catch((e) =>
+                    console.error("Chyba přehrávání zvuku prohry:", e),
+                  );
+              }
             }
             // -------------------------
 
@@ -107,9 +129,10 @@ const SlotMachine = () => {
 
   const isSpinning = isPending || isAnimating;
 
-  // --- 🔊 Effect for Spinning Sound ---
+  // --- 🔊 Effect for Spinning Sound (upravena kontrola isMuted) ---
   useEffect(() => {
-    if (isSpinning) {
+    // Přehráváme pouze, pokud točíme A NENÍ ztlumeno
+    if (isSpinning && !isMuted) {
       // Use .catch() for browser autoplay policies
       spinSound
         .play()
@@ -124,14 +147,30 @@ const SlotMachine = () => {
       spinSound.pause();
       spinSound.currentTime = 0;
     };
-  }, [isSpinning, spinSound]); // Dependency array
+  }, [isSpinning, isMuted, spinSound]); // Přidána závislost isMuted
   // ---------------------------------
 
   const betOptions = [500, 1000, 2000, 5000, 10000];
 
   return (
-    // ... (zbytek vašeho JSX se nemění)
-    <div className="flex min-h-screen items-center justify-center rounded-lg bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 p-4">
+    // Ponecháme div pro zarovnání, ale přidáme mu relative pro pozicování tlačítka
+    <div className="relative flex min-h-screen items-center justify-center rounded-lg bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 p-4">
+      {/* --- Tlačítko Ztlumení (Top Right Corner) --- */}
+      <motion.button
+        onClick={toggleMute}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="absolute top-4 right-4 z-10 rounded-full bg-gray-700/70 p-2 text-white shadow-lg backdrop-blur-sm transition-colors hover:bg-gray-600/90 sm:top-6 sm:right-6"
+        aria-label={isMuted ? "Odtlumit zvuk" : "Ztlumit zvuk"}
+      >
+        {isMuted ? (
+          <VolumeX className="h-6 w-6" />
+        ) : (
+          <Volume2 className="h-6 w-6" />
+        )}
+      </motion.button>
+      {/* ------------------------------------------- */}
+
       <div className="w-full max-w-lg space-y-4 sm:space-y-6 lg:max-w-4xl">
         {/* Header */}
         <motion.div
