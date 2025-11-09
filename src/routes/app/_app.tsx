@@ -48,7 +48,7 @@ export const Route = createFileRoute("/app/_app")({
         content: "CZU Kasíno, studenstký projekt kasína",
       },
       {
-        title: "CZU Kasíno | Admin",
+        title: "CZU Kasíno ",
       },
     ],
   }),

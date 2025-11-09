@@ -126,6 +126,7 @@ export function AppSidebar({ user }: { user: AuthUser }) {
           <button
             className="flex items-center space-x-2 transition-all duration-300 ease-in-out group-data-[collapsible=icon]:hidden group-data-[collapsible=icon]:w-8"
             onClick={logout}
+            aria-label="login"
           >
             <LogOutIcon className="mr-4 h-5 w-5" />
             Odhlásit se
@@ -134,6 +135,7 @@ export function AppSidebar({ user }: { user: AuthUser }) {
         <button
           className="hidden items-center space-x-2 transition-all duration-300 ease-in-out group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:justify-center"
           onClick={logout}
+          aria-label="logout"
         >
           <LogOutIcon className="h-5 w-5" />
         </button>

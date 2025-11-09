@@ -36,10 +36,10 @@ function Hero() {
           účely. Hrajte demo hry zdarma a bezpečně — bez skutečných peněz.
         </p>
         <div className="flex items-center justify-center gap-3 pt-2">
-          <Button size="lg" asChild>
+          <Button size="lg" asChild aria-label="začít">
             <Link to="/registrace">Začít zdarma</Link>
           </Button>
-          <Button variant="outline" size="lg" asChild>
+          <Button variant="outline" size="lg" asChild aria-label="login">
             <Link to="/login">Mám účet</Link>
           </Button>
         </div>
@@ -95,10 +95,10 @@ function Cta() {
           technologiemi.
         </p>
         <div className="flex items-center justify-center gap-3 pt-2">
-          <Button asChild size="lg">
+          <Button asChild size="lg" aria-label="vytvořit">
             <Link to="/registrace">Vytvořit účet</Link>
           </Button>
-          <Button asChild variant="outline" size="lg">
+          <Button asChild variant="outline" size="lg" aria-label="začít">
             <Link to="/login">Přihlásit se</Link>
           </Button>
         </div>

@@ -4,6 +4,17 @@ import { useAuth } from "@/lib/authentication.ts";
 
 export const Route = createFileRoute("/app/_app/nastaveni/")({
   component: RouteComponent,
+  head: () => ({
+    meta: [
+      {
+        name: "meta",
+        content: "CZU Kasíno, studenstký projekt kasína",
+      },
+      {
+        title: "CZU Kasíno | Nastaveni",
+      },
+    ],
+  }),
 });
 
 function RouteComponent() {

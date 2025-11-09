@@ -103,7 +103,12 @@ export function RegistrationForm() {
                     )}
                   </form.AppField>
                 </FieldGroup>
-                <Button type="submit" className="w-full" disabled={isPending}>
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={isPending}
+                  aria-label="registrovat"
+                >
                   {isPending ? "Registrace..." : "Registrovat"}
                 </Button>
                 <div className="text-center text-sm">

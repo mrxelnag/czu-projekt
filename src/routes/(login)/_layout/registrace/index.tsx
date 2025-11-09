@@ -7,8 +7,7 @@ export const Route = createFileRoute("/(login)/_layout/registrace/")({
     meta: [
       {
         name: "meta",
-        content:
-          "CZU Kasíno, webová aplikace pro majitele restaurací, kde správa restaurace a jídelních lístků konečně dává smysl.",
+        content: "czu kasino",
       },
       {
         title: "CZU Kasíno | Registrace",

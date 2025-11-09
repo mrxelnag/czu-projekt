@@ -81,6 +81,7 @@ export function UpdateUserForm({ user, ...props }: Props) {
           <Button
             type="submit"
             className="w-full sm:ml-auto sm:w-auto"
+            aria-label="uložit"
             disabled={isPending || !form.state.canSubmit}
           >
             {isPending ? "Ukládání..." : "Uložit změny"}

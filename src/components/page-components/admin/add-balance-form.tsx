@@ -61,7 +61,12 @@ export default function AddBalanceForm() {
           )}
         </form.AppField>
       </FieldGroup>
-      <Button type="submit" className="w-full" disabled={isPending}>
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={isPending}
+        aria-label="přidat"
+      >
         {isPending ? "Přidávám..." : "Přidat prostředky"}
       </Button>
     </form>

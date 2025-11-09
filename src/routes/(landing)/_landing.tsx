@@ -55,11 +55,13 @@ function Header() {
           </a>
         </nav>
         <div className="flex items-center gap-2">
-          <Button variant="ghost" asChild>
+          <Button variant="ghost" asChild aria-label="login">
             <Link to="/login">Přihlásit se</Link>
           </Button>
           <Button asChild>
-            <Link to="/registrace">Registrace</Link>
+            <Link to="/registrace" aria-label="registrace">
+              Registrace
+            </Link>
           </Button>
         </div>
       </div>

@@ -65,7 +65,12 @@ export function ForgotPasswordForm() {
                     )}
                   </form.AppField>
                 </FieldGroup>
-                <Button type="submit" className="w-full" disabled={isPending}>
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={isPending}
+                  aria-label="pdesůat"
+                >
                   {isPending ? "Odesílání..." : "Odeslat odkaz pro obnovení"}
                 </Button>
                 <div className="text-center text-sm">
@@ -86,7 +91,11 @@ export function ForgotPasswordForm() {
                   systému, poslali jsme vám odkaz pro obnovení hesla.
                   Zkontrolujte prosím svou e-mailovou schránku.
                 </p>
-                <Link to={"/login"} className="underline underline-offset-4">
+                <Link
+                  to={"/login"}
+                  className="underline underline-offset-4"
+                  aria-label="login"
+                >
                   <Button
                     className="mt-4 w-full"
                     onClick={() => {

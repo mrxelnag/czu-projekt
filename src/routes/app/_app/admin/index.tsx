@@ -10,6 +10,17 @@ export const Route = createFileRoute("/app/_app/admin/")({
       });
     }
   },
+  head: () => ({
+    meta: [
+      {
+        name: "meta",
+        content: "CZU Kasíno, studenstký projekt kasína",
+      },
+      {
+        title: "CZU Kasíno | Admin",
+      },
+    ],
+  }),
 });
 
 function RouteComponent() {

@@ -81,7 +81,12 @@ export function LoginForm({
                 </Link>
               </FieldGroup>
 
-              <Button type="submit" className="w-full" disabled={isPending}>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={isPending}
+                aria-label="přihlásit"
+              >
                 {isPending ? "Přihlašování..." : "Přihlásit se"}
               </Button>
 

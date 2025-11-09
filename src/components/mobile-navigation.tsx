@@ -11,6 +11,7 @@ export default function MobileNav() {
       <div className="mx-auto grid h-16 max-w-lg grid-cols-4">
         <Link
           to={"/app"}
+          aria-label="app"
           activeOptions={{ exact: true }}
           className="[&.active]:text-primary hover:bg-accent hover:text-accent-foreground inline-flex flex-col items-center justify-center transition-colors"
         >
@@ -18,6 +19,7 @@ export default function MobileNav() {
         </Link>
         <Link
           to={"/app/hry/automat"}
+          aria-label="automat"
           data-active={location.pathname.startsWith("/app/hry")}
           className="data-[active=true]:text-primary hover:bg-accent hover:text-accent-foreground inline-flex flex-col items-center justify-center transition-colors aria-disabled:pointer-events-none aria-disabled:opacity-20"
         >
@@ -25,6 +27,7 @@ export default function MobileNav() {
         </Link>
         <Link
           to={"/app/transakce"}
+          aria-label="transakce"
           data-active={location.pathname.startsWith("/app/transakce")}
           className="data-[active=true]:text-primary hover:bg-accent hover:text-accent-foreground inline-flex flex-col items-center justify-center transition-colors aria-disabled:pointer-events-none aria-disabled:opacity-20"
         >
@@ -34,6 +37,7 @@ export default function MobileNav() {
           <Button
             variant="link"
             onClick={toggleSidebar}
+            aria-label="sidebar"
             className="hover:bg-accent text-foreground hover:text-accent-foreground h-full w-full rounded-none"
           >
             <MenuIcon className="mb-1 !h-5 !w-5" />

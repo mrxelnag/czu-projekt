@@ -83,6 +83,7 @@ export function FormAsyncSelect<TData = any>({
           <Button
             variant="outline"
             role="combobox"
+            aria-label="select"
             aria-expanded={open}
             aria-invalid={isInvalid}
             className={cn(

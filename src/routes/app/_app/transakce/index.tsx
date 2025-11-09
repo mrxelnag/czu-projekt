@@ -3,6 +3,17 @@ import Transaction from "@/components/page-components/transaction/transaction-fo
 
 export const Route = createFileRoute("/app/_app/transakce/")({
   component: RouteComponent,
+  head: () => ({
+    meta: [
+      {
+        name: "meta",
+        content: "CZU Kasíno, studenstký projekt kasína",
+      },
+      {
+        title: "CZU Kasíno | Transakce",
+      },
+    ],
+  }),
 });
 
 function RouteComponent() {

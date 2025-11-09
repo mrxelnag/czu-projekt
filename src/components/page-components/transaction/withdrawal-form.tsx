@@ -62,7 +62,12 @@ export default function WithdrawalForm() {
           )}
         </form.AppField>
       </FieldGroup>
-      <Button type="submit" className="w-full" disabled={isPending}>
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={isPending}
+        aria-label="vybrat"
+      >
         {isPending ? "Zpracovávám..." : "Vybrat na peněženku"}
       </Button>
     </form>

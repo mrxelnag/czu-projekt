@@ -110,7 +110,12 @@ export default function DepositForm() {
           </form.AppField>
         </div>
       </FieldGroup>
-      <Button type="submit" className="w-full" disabled={isPending}>
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={isPending}
+        aria-label="vložit"
+      >
         {isPending ? "Zpracovávám..." : "Vložit částku"}
       </Button>
     </form>
