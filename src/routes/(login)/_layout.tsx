@@ -20,7 +20,7 @@ function RouteComponent() {
   return (
     <div className="bg-background flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
       <a
-        href={import.meta.env.VITE_PROD_APP_URL}
+        href={"/"}
         className={buttonVariants({
           variant: "secondary",
           className: "absolute top-2 left-2 md:top-6 md:left-6",

@@ -59,7 +59,7 @@ function Features() {
       desc: "Naučte se zásady bezpečného hraní a správy bankrollu.",
     },
     {
-      title: "Open‑source",
+      title: "Další popis",
       desc: "Projekt je vytvořen pro studijní účely a je snadno rozšiřitelný.",
     },
   ] as const;

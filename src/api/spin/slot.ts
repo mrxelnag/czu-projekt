@@ -61,7 +61,7 @@ export const useSpinSlotMachine = () => {
       //   });
       // } else {
       //   toast.info(`Kolo dokončeno`, {
-      //     description: `Nevyhráli jste. Zkuste to znovu!`,
+      //     description: `Nevyhráli jste.  Zkuste to znovu!`,
       //   });
       // }
     },

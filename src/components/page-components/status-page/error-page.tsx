@@ -30,7 +30,9 @@ export default function ErrorPage({ error }: ErrorComponentProps) {
                 {error.message}
               </p>
             )}
-            <a className="w-full">Zpět na hlavní stránku</a>
+            <a href="/" className="w-full">
+              Zpět na hlavní stránku
+            </a>
           </CardContent>
         </Card>
       </div>

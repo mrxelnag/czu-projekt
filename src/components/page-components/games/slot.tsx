@@ -177,9 +177,6 @@ const SlotMachine = () => {
                 winningRows={winningRows}
               />
             </motion.div>
-
-            {/* Result Display */}
-            {result && <ResultDisplay result={result} />}
           </div>
         </div>
 
@@ -249,6 +246,7 @@ const SlotMachine = () => {
             )}
           </motion.button>
         </motion.div>
+        {result && <ResultDisplay result={result} />}
         <div className="order-1 lg:order-2">
           <Paytable />
         </div>
