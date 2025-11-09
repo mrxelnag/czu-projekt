@@ -3,6 +3,17 @@ import { Button } from "@/components/ui/button.tsx";
 
 export const Route = createFileRoute("/(landing)/_landing")({
   component: RouteComponent,
+  head: () => ({
+    meta: [
+      {
+        name: "meta",
+        content: "CZU Kasíno, studenstký projekt kasína",
+      },
+      {
+        title: "CZU Kasíno | Admin",
+      },
+    ],
+  }),
 });
 
 function RouteComponent() {
