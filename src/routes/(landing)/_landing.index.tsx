@@ -52,7 +52,7 @@ function Features() {
   const items = [
     {
       title: "Demo hry",
-      desc: "Vyzkoušejte si hrací automat a ruletu bez rizika ztráty peněz.",
+      desc: "Vyzkoušejte si hrací automat a ruletu bez rizika ztráty peněz. Nejlepší automaty zdarma",
     },
     {
       title: "Zodpovědné hraní",
